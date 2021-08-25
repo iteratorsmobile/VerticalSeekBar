@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">VerticalSeekBar</string>
     <string name="title">Here\'s a vertical seek bar:</string>
+    <string name="zoom">Zoom</string>
 </resources>

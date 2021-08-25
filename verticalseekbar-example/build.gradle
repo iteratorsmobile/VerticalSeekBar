@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.ben-manes.versions'
 
 android {
@@ -7,6 +8,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 
     defaultConfig {
@@ -35,4 +37,6 @@ dependencies {
 
     // DEPENDENCY CHECK STRATEGY
     dependencyUpdates.resolutionStrategy dependencyUpdatesStrategy
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+
 }
