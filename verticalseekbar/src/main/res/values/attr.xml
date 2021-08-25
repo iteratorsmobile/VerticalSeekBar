@@ -6,6 +6,7 @@
         <attr name="vsb_bar_corner_radius" format="dimension" />
         <attr name="vsb_bar_width" format="dimension" />
         <attr name="vsb_bar_background" format="reference|color" />
+        <attr name="vsb_bar_background_image" format="reference" />
         <attr name="vsb_bar_background_gradient_start" format="color" />
         <attr name="vsb_bar_background_gradient_end" format="color" />
         <attr name="vsb_bar_progress" format="reference|color" />

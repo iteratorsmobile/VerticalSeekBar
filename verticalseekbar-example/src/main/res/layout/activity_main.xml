@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#009688"
         tools:context=".MainActivity">
 
         <ImageView
@@ -94,11 +95,12 @@
             android:layout_width="@dimen/zoom_thumb_width"
             android:layout_height="130dp"
             android:layout_marginEnd="@dimen/default_padding"
+            app:vsb_bar_background_image="@drawable/ic_zoom_scale"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:vsb_bar_background="@drawable/drawable_zoom_view_background"
-            app:vsb_bar_progress="@android:color/transparent"
+            app:vsb_bar_background="@color/black_60"
+            app:vsb_bar_progress="@color/colorPrimary"
             app:vsb_bar_width="@dimen/zoom_view_width"
             app:vsb_click_to_set_progress="true"
             app:vsb_progress="0"

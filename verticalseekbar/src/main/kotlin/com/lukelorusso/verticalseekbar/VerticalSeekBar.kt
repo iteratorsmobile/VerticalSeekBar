@@ -12,8 +12,6 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.layout_verticalseekbar.view.*
 import kotlin.math.max
@@ -61,6 +59,12 @@ open class VerticalSeekBar @JvmOverloads constructor(
             field = value
             applyAttributes()
         }
+    var barBackgroundImageDrawable: Drawable? = null
+        set(value) {
+            field = value
+            applyAttributes()
+        }
+
     var barBackgroundStartColor: Int = Color.parseColor(DEFAULT_DRAWABLE_BACKGROUND)
         set(value) {
             field = value
@@ -234,6 +238,10 @@ open class VerticalSeekBar @JvmOverloads constructor(
                 attributes.getDrawable(R.styleable.VerticalSeekBar_vsb_bar_background)?.also {
                     barBackgroundDrawable = it
                 }
+                attributes.getDrawable(R.styleable.VerticalSeekBar_vsb_bar_background_image)?.also {
+                    barBackgroundImageDrawable = it
+                }
+
                 barProgressStartColor =
                     attributes.getColor(
                         R.styleable.VerticalSeekBar_vsb_bar_progress_gradient_start,
@@ -344,24 +352,6 @@ open class VerticalSeekBar @JvmOverloads constructor(
         if (initEnded) {
             initEnded = false // will be released at the end
 
-            var thumbCardView: CardView? = null // nullable for customization
-            try {
-                thumbCardView = thumb.findViewById(R.id.thumbCardView)
-            } catch (ignored: NoSuchFieldError) {
-            }
-
-            var thumbPlaceholder: ImageView? = null // nullable for customization
-            try {
-                thumbPlaceholder = thumb.findViewById(R.id.thumbPlaceholder)
-            } catch (ignored: NoSuchFieldError) {
-            }
-
-            var thumbCustomViewContainer: FrameLayout? = null // nullable for customization
-            try {
-                thumbCustomViewContainer = thumb.findViewById(R.id.thumbCustomContainer)
-            } catch (ignored: NoSuchFieldError) {
-            }
-
             // Customizing drawableCardView
             barCardView.layoutParams.width = barWidth ?: 0
 
@@ -370,7 +360,14 @@ open class VerticalSeekBar @JvmOverloads constructor(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 intArrayOf(barBackgroundStartColor, barBackgroundEndColor)
             ).apply { cornerRadius = 0f }
-            barBackground.background = barBackgroundDrawable
+            //TODO setting background on card view will remove elevation
+            barCardView.background = barBackgroundDrawable
+            if (barBackgroundImageDrawable != null) {
+                barBackgroundImage.setImageDrawable(barBackgroundImageDrawable)
+                barBackgroundImage.visibility = View.VISIBLE
+            } else {
+                barBackgroundImage.visibility = View.GONE
+            }
 
             // Customizing drawableProgress
             if (barProgressDrawable == null) barProgressDrawable = GradientDrawable(
@@ -402,8 +399,8 @@ open class VerticalSeekBar @JvmOverloads constructor(
                     }
                 }
                 thumbCustomView?.let { customView ->
-                    if (thumbCustomViewContainer?.childCount ?: 0 == 0) {
-                        thumbCustomViewContainer?.addView(customView)
+                    if (thumbCustomContainer?.childCount ?: 0 == 0) {
+                        thumbCustomContainer?.addView(customView)
                     }
                 }
                 thumb.visibility = View.VISIBLE
