@@ -13,7 +13,7 @@ ext {
     androidVersionName          = '1.2.7' // REMEMBER: also update README.md
 
     // ANDROID VERSION
-    androidMinSdkVersion        = 28
+    androidMinSdkVersion        = 16
     androidTargetSdkVersion     = 30
 
     // KOTLIN

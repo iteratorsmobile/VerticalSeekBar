@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
@@ -500,14 +499,12 @@ open class VerticalSeekBar @JvmOverloads constructor(
                                 (barCardView.layoutParams as LayoutParams).topMargin -
                                 (thumb.layoutParams as LayoutParams).topMargin -
                                 thumb.measuredHeight / 2
-                        Log.i("ACTION_DOWN", "yDelta = $yDelta")
                         onPressListener?.invoke(progress)
                     }
 
                     MotionEvent.ACTION_MOVE -> {
                         val positionY = rawY - yDelta // here we calculate the displacement
                         val fillHeight = barCardView.measuredHeight
-                        Log.i("ACTION_MOVE", "positionY = $positionY; fill height = $fillHeight")
                         when { // here we update progress
                             positionY in 1 until fillHeight -> {
                                 val newValue =
@@ -577,12 +574,6 @@ open class VerticalSeekBar @JvmOverloads constructor(
                 if (barCardViewLayoutParams.bottomMargin != 0) barCardViewLayoutParams.bottomMargin else thumbCardView.measuredHeight / 2
             val fillHeight = height - topMargin - bottomMargin
             val marginByProgress = fillHeight - (progress * fillHeight / maxValue)
-            Log.i(
-                "updateViews",
-                "fillHeight = $fillHeight; top margin = ${barCardViewLayoutParams.topMargin}; bottom margin = ${barCardViewLayoutParams.bottomMargin}"
-            )
-            Log.i("updateViews", "progress = $progress; max value = $maxValue")
-            Log.i("updateViews", "marginByProgress = $marginByProgress")
             thumb.layoutParams = (thumb.layoutParams as LayoutParams).apply {
                 this.topMargin = marginByProgress
                 val thumbHalfHeight = if (showThumb) thumb.measuredHeight / 2 else 0
